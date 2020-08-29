@@ -10,18 +10,8 @@ import os
 font = {'size'   : 14}
 rc('font', **font)
 
-#env_name = 'MountainCarContinuous'
-#env_name = 'Pendulum'
-#env_name = 'CartPole'
-#env_name = 'DobroHalfCheetah'
-#env_name = "Safexp_PointGoal1_CPO_1"
-#env_name = "Safexp_PointGoal1_CPO_modified_2"
-env_name = "TORCS"
+env_name = "Safexp_PointGoal1"
 env_name = "{}_CPO_{}".format(env_name, sys.argv[1])
-#env_name = "Safexp_PointGoal1.my_version"
-#item_name = 'score'
-#item_name = 'cost'
-#item_name = 'loss'
 item_names = ['score', 'cost']
 moving_period = 10
 
@@ -39,7 +29,6 @@ def smoothing(steps, records):
     iters = iters[moving_period-1:]
     return iters, smooth
 
-#dir_names = ['{}/{}_log'.format(env_name, item_name)]
 dir_names = ['{}/{}_log'.format(env_name, item_name) for item_name in item_names]
 
 records = []
@@ -51,9 +40,7 @@ for dir_name in dir_names:
     temp_records = [] #log갯수 * 총step * 2(각step수, score)
     for record_name in record_names:
         with open(record_name, 'rb') as f:
-            #temp_records.append(pickle.load(f))
             temp_records += pickle.load(f)
-    #records.append(temp_records) #폴더수 * log갯수 * 총step * 2(각step수, score)
     records.append([temp_records]) #폴더수 * log갯수 * 총step * 2(각step수, score)
 
 steps = []
