@@ -10,20 +10,13 @@ import os
 font = {'size'   : 14}
 rc('font', **font)
 
-#env_name = 'MountainCarContinuous'
-#env_name = 'Pendulum'
-#env_name = 'CartPole'
-#env_name = 'DobroHalfCheetah'
-#env_name = "Safexp_PointGoal1_CPO_1"
-#env_name = "Safexp_PointGoal1_CPO_modified_2"
-env_name = "TORCS"
-env_name = "{}_CPO_{}".format(env_name, sys.argv[1])
-#env_name = "Safexp_PointGoal1.my_version"
-#item_name = 'score'
-#item_name = 'cost'
-#item_name = 'loss'
+org_env_name = "Safexp_PointGoal1"
+env_name = "{}_CPO_{}".format(org_env_name, sys.argv[1])
 item_names = ['score', 'cost']
-moving_period = 10
+if len(sys.argv) == 3:
+    moving_period = int(sys.argv[2])
+else:
+    moving_period = 10
 
 def smoothing(steps, records):
     iters = []
@@ -39,7 +32,6 @@ def smoothing(steps, records):
     iters = iters[moving_period-1:]
     return iters, smooth
 
-#dir_names = ['{}/{}_log'.format(env_name, item_name)]
 dir_names = ['{}/{}_log'.format(env_name, item_name) for item_name in item_names]
 
 records = []
@@ -51,9 +43,10 @@ for dir_name in dir_names:
     temp_records = [] #log갯수 * 총step * 2(각step수, score)
     for record_name in record_names:
         with open(record_name, 'rb') as f:
-            #temp_records.append(pickle.load(f))
-            temp_records += pickle.load(f)
-    #records.append(temp_records) #폴더수 * log갯수 * 총step * 2(각step수, score)
+            data = pickle.load(f)
+            temp_records += data
+            data = np.array(data)
+            print(np.mean(data[:,1]))
     records.append([temp_records]) #폴더수 * log갯수 * 총step * 2(각step수, score)
 
 steps = []
@@ -106,7 +99,7 @@ for i in range(len(dir_names)):
     temp_stds = stds[i]
     ax1.plot(lin_space, temp_rewards, lw=2)
     ax1.fill_between(lin_space, temp_rewards-temp_stds, temp_rewards+temp_stds, alpha=0.3)
-    ax1.set_title('{}\n{}'.format(env_name, item_names[i]))
+    ax1.set_title('{}\n{}'.format(org_env_name, item_names[i]))
     ax1.set_xlabel('Steps')
     ax1.set_ylabel(item_names[i])
     ax1.grid()
