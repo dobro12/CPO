@@ -1,5 +1,5 @@
 # CPO
-A simple Tensorflow version implementation of constrained policy optimization (CPO) on Safety Gym.
+A simple Tensorflow1 & PyTorch implementation of constrained policy optimization (CPO) on Safety Gym.
 
 ## requirement
 - gym
@@ -9,8 +9,14 @@ A simple Tensorflow version implementation of constrained policy optimization (C
 - pytorch 1.10.1
 
 ## how to use
+
+### tf1
 - `python train.py #training`
 - `python train.py test #test`
+
+### torch
+- `python main.py #training`
+- `python main.py --test --resume {#_of_checkpoint} #test`
 
 ## reference
 - CPO paper: https://arxiv.org/abs/1705.10528
