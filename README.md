@@ -1,5 +1,5 @@
 # CPO
-Constrained Policy Optimization implementation on Safety Gym
+A simple Tensorflow version implementation of constrained policy optimization (CPO) on Safety Gym.
 
 ## requirement
 - gym
@@ -13,5 +13,5 @@ Constrained Policy Optimization implementation on Safety Gym
 - `python train.py test #test`
 
 ## reference
-https://arxiv.org/abs/1705.10528
-https://github.com/openai/safety-starter-agents
+- CPO paper: https://arxiv.org/abs/1705.10528
+- Original code: https://github.com/openai/safety-starter-agents

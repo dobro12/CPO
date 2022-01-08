@@ -222,7 +222,7 @@ class Agent:
             scalar_r = np.inner(approx_g, H_inv_b)
             scalar_s = np.inner(approx_b, H_inv_b)
             A_value = scalar_q - scalar_r**2 / scalar_s    # should be always positive (Cauchy-Shwarz)
-            B_value = self.max_kl - c_value**2 / scalar_s  # does safety boundary intersect trust region? (positive = yes)
+            B_value = 2*self.max_kl - c_value**2 / scalar_s  # does safety boundary intersect trust region? (positive = yes)
 
             if c_value < 0 and B_value < 0:
                 # point in trust region is feasible and safety boundary doesn't intersect
