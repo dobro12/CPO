@@ -6,6 +6,7 @@ Constrained Policy Optimization implementation on Safety Gym
 - mujoco
 - safety_gym
 - tensorflow 1.13.1
+- pytorch 1.10.1
 
 ## how to use
 - `python train.py #training`
